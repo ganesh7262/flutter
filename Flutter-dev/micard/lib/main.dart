@@ -11,19 +11,33 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          backgroundColor: Colors.blue,
           body: SafeArea(
-            child: Container(
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset('images/img1.png'),
-                    Image.asset('images/img2.png'),
-                    Image.asset('images/img3.png'),
-                  ],
-                )),
-          )),
+              child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CircleAvatar(
+            backgroundColor: Colors.red.shade900,
+            radius: 50.0,
+            backgroundImage: const AssetImage('images/PFP.jpg'),
+          ),
+          const Text(
+            'Ganesh Shinde',
+            style: TextStyle(
+                fontFamily: 'Pacifico',
+                fontSize: 40.0,
+                fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.bold),
+          ),
+          const Text(
+            'FLUTTER DEVLOPER',
+            style: TextStyle(
+                fontFamily: 'SourceSansPro',
+                fontSize: 20.0,
+                fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.bold),
+          )
+        ],
+      ))),
     );
   }
 }
