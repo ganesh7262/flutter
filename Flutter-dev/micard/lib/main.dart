@@ -14,12 +14,15 @@ class MyWidget extends StatelessWidget {
           backgroundColor: Colors.blue,
           body: SafeArea(
             child: Container(
-              margin: EdgeInsets.fromLTRB(30, 10, 50, 20),
-              height: 100.0,
-              width: 100.0,
-              color: Colors.white,
-              child: Center(child: const Text('Child widget')),
-            ),
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.asset('images/img1.png'),
+                    Image.asset('images/img2.png'),
+                    Image.asset('images/img3.png'),
+                  ],
+                )),
           )),
     );
   }
