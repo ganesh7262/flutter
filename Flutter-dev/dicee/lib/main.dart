@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Dicepage());
+  runApp(MaterialApp(
+      home: Scaffold(
+    appBar: AppBar(
+      backgroundColor: Colors.redAccent,
+      title: const Center(
+          child: Text(
+        'Dicee Game',
+      )),
+    ),
+    backgroundColor: Colors.redAccent.shade700,
+    body: const Diceepage(),
+  )));
 }
 
-class Dicepage extends StatelessWidget {
-  const Dicepage({super.key});
+class Diceepage extends StatelessWidget {
+  const Diceepage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueGrey.shade400,
-          title: const Center(
-              child: Text(
-            'Dicee Game',
-          )),
+    return Row(
+      // crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(
+          height: double.infinity,
         ),
-        backgroundColor: Colors.blueGrey.shade700,
-        body: const SafeArea(child: Text('I am a dice game')),
-      ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset('images/dice1.png'),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset('images/dice2.png'),
+          ),
+        ),
+      ],
     );
   }
 }
