@@ -31,19 +31,28 @@ class Quizpage extends StatefulWidget {
 
 class _QuizpageState extends State<Quizpage> {
   List<Icon> scoreKeeper = [];
+
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.',
+  ];
+
+  int question_number = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Expanded(
+        Expanded(
           flex: 5,
           child: Center(
               child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(20.0),
             child: Text(
-              'This is where the question will go',
-              style: TextStyle(
+              questions[question_number],
+              style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white,
               ),
@@ -59,6 +68,7 @@ class _QuizpageState extends State<Quizpage> {
               ),
               onPressed: () {
                 setState(() {
+                  question_number++;
                   scoreKeeper.add(const Icon(
                     Icons.check,
                     color: Colors.green,
@@ -78,6 +88,7 @@ class _QuizpageState extends State<Quizpage> {
               ),
               onPressed: () {
                 setState(() {
+                  question_number++;
                   scoreKeeper.add(const Icon(
                     Icons.close,
                     color: Colors.red,
@@ -90,8 +101,15 @@ class _QuizpageState extends State<Quizpage> {
         ),
         Row(
           children: scoreKeeper,
-        )
+        ),
       ],
     );
   }
 }
+
+
+/*
+question1: , false,
+question2: , true,
+question3: , true,
+*/
