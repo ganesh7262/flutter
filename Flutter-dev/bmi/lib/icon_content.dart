@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
 class IconsContent extends StatelessWidget {
   IconsContent({required this.genderIcon, required this.gender});
@@ -19,7 +20,7 @@ class IconsContent extends StatelessWidget {
         ),
         Text(
           gender,
-          style: TextStyle(fontSize: 18.0, color: Color(0xff8d8e98)),
+          style: kLabelTextStyle,
         )
       ],
     );
