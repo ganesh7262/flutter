@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
@@ -223,11 +221,22 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 10.0),
-            color: kBottomBarColor,
-            width: double.infinity,
-            height: kBottomBarHeight,
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/respage');
+            },
+            child: Container(
+              margin: const EdgeInsets.only(top: 10.0),
+              color: kBottomBarColor,
+              width: double.infinity,
+              height: kBottomBarHeight,
+              child: Center(
+                child: Text(
+                  'CALCULATE',
+                  style: kNumberTextStyle.copyWith(fontSize: 25),
+                ),
+              ),
+            ),
           ),
         ],
       ),
