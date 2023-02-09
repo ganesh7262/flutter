@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:navigation_tutorial/screen1.dart';
+import 'screen1.dart';
+import 'screen2.dart';
 import 'screen0.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
-      home: Screen0(),
+    MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Screen0(),
+        '/first': (context) => Screen1(),
+        '/second': (context) => Screen2(),
+      },
     ),
   );
 }

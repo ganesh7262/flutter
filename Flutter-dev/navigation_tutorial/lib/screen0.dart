@@ -8,13 +8,15 @@ class Screen0 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Screen0'),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.purple,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/first');
+            },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             child: const Text('go to screen1'),
           ),
@@ -22,7 +24,9 @@ class Screen0 extends StatelessWidget {
             width: double.infinity,
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/second');
+            },
             child: const Text('go to screen2'),
           ),
         ],
