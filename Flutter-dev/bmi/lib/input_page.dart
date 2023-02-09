@@ -1,8 +1,10 @@
+import 'package:bmi/resultpage.dart';
 import 'package:flutter/material.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
 import 'RoundIconbutton.dart';
+import 'Calculator.dart';
 
 enum Gender {
   male,
@@ -223,7 +225,18 @@ class _InputPageState extends State<InputPage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/respage');
+              CalculatorBMI calc =
+                  CalculatorBMI(height: height, weight: weight);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultPage(
+                      result: calc.result(),
+                      weight: calc.getResult(),
+                      interpretation: calc.getInterpretation()),
+                ),
+              );
             },
             child: Container(
               margin: const EdgeInsets.only(top: 10.0),
