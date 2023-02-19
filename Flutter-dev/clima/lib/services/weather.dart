@@ -11,6 +11,16 @@ class WeatherModel {
         url:
             'https://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&appid=$apiKey&units=metric');
     var weatherData = await nh.GetData();
+    // print(weatherData);
+    return weatherData;
+  }
+
+  Future getCityWeather(String cityName) async {
+    String url =
+        'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric';
+    NetworkHelper networkHelper = NetworkHelper(url: url);
+    var weatherData = await networkHelper.GetData();
+    print(weatherData);
     return weatherData;
   }
 
