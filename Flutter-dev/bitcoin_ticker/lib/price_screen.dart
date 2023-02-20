@@ -1,3 +1,4 @@
+import 'card.dart';
 import 'package:flutter/material.dart';
 import 'coin_data.dart';
 
@@ -7,6 +8,9 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
+  String bitcoinValue = '?';
+  String ethValue = '?';
+  String lthValue = '?';
   String listSelectedValue = currenciesList.first;
   List<DropdownMenuItem<String>> dropDownItemList() {
     List<DropdownMenuItem<String>> itemList = [];
@@ -21,6 +25,23 @@ class _PriceScreenState extends State<PriceScreen> {
     return itemList;
   }
 
+  void updateRate() async {
+    double btcval = await CoinData().getData(cryptoList[0], listSelectedValue);
+    double ethval = await CoinData().getData(cryptoList[1], listSelectedValue);
+    double lthval = await CoinData().getData(cryptoList[2], listSelectedValue);
+    setState(() {
+      bitcoinValue = btcval.toString();
+      ethValue = ethval.toString();
+      lthValue = lthval.toString();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateRate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,26 +52,12 @@ class _PriceScreenState extends State<PriceScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
-            child: Card(
-              color: Colors.lightBlueAccent,
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-                child: Text(
-                  '1 BTC = ? USD',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
+          Column(
+            children: [
+              card('BTC', bitcoinValue, listSelectedValue),
+              card('ETH', ethValue, listSelectedValue),
+              card('LTH', lthValue, listSelectedValue),
+            ],
           ),
           Container(
             height: 150.0,
@@ -63,7 +70,7 @@ class _PriceScreenState extends State<PriceScreen> {
               onChanged: (value) {
                 setState(() {
                   listSelectedValue = value.toString();
-                  print(value);
+                  updateRate();
                 });
               },
             ),
