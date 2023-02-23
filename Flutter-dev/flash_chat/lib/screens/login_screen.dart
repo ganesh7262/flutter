@@ -14,7 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -26,25 +26,32 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Image.asset('images/logo.png'),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 48.0,
             ),
             TextField(
-                onChanged: (value) {
-                  //Do something with the user input.
-                },
-                decoration: kTextFieldInputDecoration),
-            SizedBox(
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.black),
+              onChanged: (value) {
+                //Do something with the user input.
+              },
+              decoration: kTextFieldInputDecoration,
+            ),
+            const SizedBox(
               height: 8.0,
             ),
             TextField(
+              obscureText: true,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.black),
               onChanged: (value) {
                 //Do something with the user input.
               },
               decoration: kTextFieldInputDecoration.copyWith(
                   hintText: 'Enter your password'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 24.0,
             ),
             RoundedButton(
