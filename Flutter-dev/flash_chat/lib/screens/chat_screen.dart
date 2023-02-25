@@ -83,6 +83,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         {
                           'text': messageText,
                           'email': user.email,
+                          'createdAt': FieldValue.serverTimestamp(),
                         },
                       );
                     },

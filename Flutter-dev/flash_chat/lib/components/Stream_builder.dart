@@ -10,7 +10,7 @@ class StreamMsgHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: firestore.collection('messages').snapshots(),
+      stream: firestore.collection('messages').orderBy('createdAt').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const Center(
@@ -18,7 +18,7 @@ class StreamMsgHandler extends StatelessWidget {
           );
         }
         List<MessageBubble> messageWidgets = [];
-        final message = snapshot.data!.docs;
+        final message = snapshot.data!.docs.reversed;
         for (var msg in message) {
           final msgText = msg['text'];
           final msgSender = msg['email'];
