@@ -14,17 +14,11 @@ class TaskScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-              isScrollControlled: true,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
               ),
               context: context,
-              builder: (context) => SingleChildScrollView(
-                      child: Container(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: AddTaskScreen(),
-                  )));
+              builder: (context) => AddTaskScreen());
         },
         backgroundColor: Colors.lightBlueAccent.shade100,
         child: const Icon(Icons.add),
@@ -75,8 +69,8 @@ class TaskScreen extends StatelessWidget {
                     topRight: Radius.circular(20),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
                   child: TaskList(),
                 ),
               ),
