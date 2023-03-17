@@ -20,7 +20,7 @@ class AddTaskScreen extends StatelessWidget {
             ),
           ),
           const TextField(
-            autofocus: true,
+            autofocus: false,
           ),
           const SizedBox(
             height: 10,

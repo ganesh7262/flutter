@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:todoey/constants.dart';
 import 'package:todoey/Widgets/task_list.dart';
 import 'add_task_screen.dart';
+import 'package:todoey/components/task.dart';
 
 class TaskScreen extends StatelessWidget {
   TaskScreen({super.key});
 
   bool isChecked = false;
+  List<Task> Tasks = [
+    Task(taskName: "Buy milk"),
+    Task(taskName: "Buy eggs"),
+    Task(taskName: "Buy bread"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +75,9 @@ class TaskScreen extends StatelessWidget {
                     topRight: Radius.circular(20),
                   ),
                 ),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.0),
-                  child: TaskList(),
+                  child: TaskList(Tasks),
                 ),
               ),
             )
