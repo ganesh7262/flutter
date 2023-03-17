@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:todoey/constants.dart';
 import 'package:todoey/Widgets/task_list.dart';
+import 'package:todoey/main.dart';
 import 'add_task_screen.dart';
 import 'package:todoey/components/task.dart';
+import 'package:provider/provider.dart';
 
 class TaskScreen extends StatelessWidget {
-  TaskScreen({super.key});
-
-  bool isChecked = false;
-  List<Task> Tasks = [
-    Task(taskName: "Buy milk"),
-    Task(taskName: "Buy eggs"),
-    Task(taskName: "Buy bread"),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +17,13 @@ class TaskScreen extends StatelessWidget {
                 borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
               ),
               context: context,
-              builder: (context) => AddTaskScreen());
+              builder: (context) => AddTaskScreen((newtask) {
+                    // setState(() {
+                    //   Provider.of<tList>(context, listen: false)
+                    //       .modifyData(newtask);
+                    //   Navigator.pop(context);
+                    // });
+                  }));
         },
         backgroundColor: Colors.lightBlueAccent.shade100,
         child: const Icon(Icons.add),
@@ -56,7 +55,8 @@ class TaskScreen extends StatelessWidget {
                       style: kTitleTextStyle,
                     ),
                     Text(
-                      '12 Tasks',
+                      Provider.of<tList>(context).Tasks.length.toString() +
+                          " Tasks",
                       style: kTitleTextStyle.copyWith(
                           fontSize: 20, fontWeight: FontWeight.w400),
                     ),
@@ -77,7 +77,7 @@ class TaskScreen extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.0),
-                  child: TaskList(Tasks),
+                  child: TaskList(),
                 ),
               ),
             )
