@@ -25,14 +25,25 @@ class MyApp extends StatelessWidget {
 }
 
 class tList extends ChangeNotifier {
-  List<Task> Tasks = [
+  List<Task> _Tasks = [
     Task(taskName: "Buy milk"),
     Task(taskName: "Buy eggs"),
     Task(taskName: "Buy bread"),
   ];
 
-  void modifyData(String taskTitle) {
-    Tasks.add(Task(taskName: taskTitle));
+  void addNewTask(String taskTitle) {
+    _Tasks.add(Task(taskName: taskTitle));
     notifyListeners();
   }
+
+  void taskStatusUpdate(int idx) {
+    _Tasks[idx].toggleDone();
+    notifyListeners();
+  }
+
+  bool taskStatus(int idx) => _Tasks[idx].isDone;
+
+  String taskTitle(int idx) => _Tasks[idx].taskName;
+
+  int tasksLen() => _Tasks.length;
 }

@@ -13,17 +13,12 @@ class TaskScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-              ),
-              context: context,
-              builder: (context) => AddTaskScreen((newtask) {
-                    // setState(() {
-                    //   Provider.of<tList>(context, listen: false)
-                    //       .modifyData(newtask);
-                    //   Navigator.pop(context);
-                    // });
-                  }));
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+            ),
+            context: context,
+            builder: (context) => AddTaskScreen(),
+          );
         },
         backgroundColor: Colors.lightBlueAccent.shade100,
         child: const Icon(Icons.add),
@@ -55,7 +50,7 @@ class TaskScreen extends StatelessWidget {
                       style: kTitleTextStyle,
                     ),
                     Text(
-                      Provider.of<tList>(context).Tasks.length.toString() +
+                      Provider.of<tList>(context).tasksLen().toString() +
                           " Tasks",
                       style: kTitleTextStyle.copyWith(
                           fontSize: 20, fontWeight: FontWeight.w400),

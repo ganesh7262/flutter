@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoey/constants.dart';
+import 'package:todoey/main.dart';
 
 class AddTaskScreen extends StatelessWidget {
   // const AddTaskScreen({super.key});
-  late String newTaskTitle;
-  final Function addtask;
-  AddTaskScreen(this.addtask);
 
   @override
   Widget build(BuildContext context) {
+    late String newTaskTitle;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Column(
@@ -37,7 +37,10 @@ class AddTaskScreen extends StatelessWidget {
                     (states) => Colors.lightBlueAccent.shade100),
               ),
               onPressed: () {
-                addtask(newTaskTitle);
+                // addtask(newTaskTitle);
+                Provider.of<tList>(context, listen: false)
+                    .addNewTask(newTaskTitle);
+                Navigator.pop(context);
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
