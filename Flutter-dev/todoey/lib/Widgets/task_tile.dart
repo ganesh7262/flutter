@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/main.dart';
 
 class TaskTile extends StatelessWidget {
   final bool isChecked;
@@ -12,16 +14,21 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        taskName,
-        style: TextStyle(
-            decoration: isChecked ? TextDecoration.lineThrough : null),
-      ),
-      trailing: Checkbox(
-        activeColor: Colors.lightBlueAccent.shade100,
-        value: isChecked,
-        onChanged: checkBoxCallBack,
+    return GestureDetector(
+      onLongPress: () {
+        Provider.of<tList>(context, listen: false).deleteTask(taskName);
+      },
+      child: ListTile(
+        title: Text(
+          taskName,
+          style: TextStyle(
+              decoration: isChecked ? TextDecoration.lineThrough : null),
+        ),
+        trailing: Checkbox(
+          activeColor: Colors.lightBlueAccent.shade100,
+          value: isChecked,
+          onChanged: checkBoxCallBack,
+        ),
       ),
     );
   }

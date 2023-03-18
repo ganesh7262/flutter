@@ -41,6 +41,11 @@ class tList extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteTask(String taskName) {
+    _Tasks.removeWhere((element) => element.taskName == taskName);
+    notifyListeners();
+  }
+
   bool taskStatus(int idx) => _Tasks[idx].isDone;
 
   String taskTitle(int idx) => _Tasks[idx].taskName;
