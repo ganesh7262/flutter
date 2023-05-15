@@ -47,7 +47,7 @@ class _InputPageState extends State<InputPage> {
                         ? kActiveCardColor
                         : kInactiveCardColor,
                     cardChild:
-                        IconsContent(genderIcon: Icons.male, gender: 'MALE'),
+                        const IconsContent(genderIcon: Icons.male, gender: 'MALE'),
                   ),
                 ),
                 Expanded(
@@ -60,7 +60,7 @@ class _InputPageState extends State<InputPage> {
                     colour: selectedGender == Gender.female
                         ? kActiveCardColor
                         : kInactiveCardColor,
-                    cardChild: IconsContent(
+                    cardChild: const IconsContent(
                         genderIcon: Icons.female, gender: 'FEMALE'),
                   ),
                 ),

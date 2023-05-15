@@ -1,11 +1,10 @@
 import 'package:bmi/constants.dart';
 import 'package:bmi/reusable_card.dart';
 import 'package:flutter/material.dart';
-import 'input_page.dart';
 
 class ResultPage extends StatelessWidget {
-  ResultPage(
-      {required this.weight,
+  const ResultPage(
+      {super.key, required this.weight,
       required this.result,
       required this.interpretation});
 

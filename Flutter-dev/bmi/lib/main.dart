@@ -11,7 +11,7 @@ class BMICalculator extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => InputPage(),
+        '/': (context) => const InputPage(),
         '/respage': (context) => ResultPage(
             weight: 'Normal',
             result: 18.4.toString(),
