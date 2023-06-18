@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:advquiz/Question_utility/questions.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -8,13 +9,13 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  String op1 = "option 1 hello";
-  String op2 = "Option 1 hello world";
-  String ques =
-      "Here resides the Question hello world sentinels on the top lets go baby kang kang";
+  int curQuestion = 0;
 
   void qUpdate() {
-    op1 = op2;
+    if (curQuestion < questions.length - 1)
+      curQuestion++;
+    else
+      curQuestion = 0;
   }
 
   @override
@@ -39,11 +40,11 @@ class _QuizState extends State<Quiz> {
             const SizedBox(
               width: double.infinity,
             ),
-            questionBox(ques),
-            optionButton(op1),
-            optionButton(op1),
-            optionButton(op1),
-            optionButton(op1),
+            questionBox(questions[curQuestion].question),
+            optionButton(questions[curQuestion].options[0]),
+            optionButton(questions[curQuestion].options[1]),
+            optionButton(questions[curQuestion].options[2]),
+            optionButton(questions[curQuestion].options[3]),
           ],
         ),
       ),
@@ -54,6 +55,7 @@ class _QuizState extends State<Quiz> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: Container(
+        constraints: const BoxConstraints(minWidth: double.infinity),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -61,9 +63,11 @@ class _QuizState extends State<Quiz> {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 15),
-          child: Text(
-            ques,
-            style: const TextStyle(color: Colors.white, fontSize: 20),
+          child: Center(
+            child: Text(
+              ques,
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            ),
           ),
         ),
       ),
@@ -81,9 +85,11 @@ class _QuizState extends State<Quiz> {
         },
         style: FilledButton.styleFrom(
           backgroundColor: const Color.fromARGB(197, 135, 21, 91),
-          minimumSize: const Size.fromHeight(45),
+          minimumSize: const Size.fromHeight(50),
         ),
-        child: Text(op),
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Text(op)),
       ),
     );
   }
