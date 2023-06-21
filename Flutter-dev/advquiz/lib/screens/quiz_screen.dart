@@ -1,3 +1,4 @@
+import 'package:advquiz/screens/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:advquiz/Question_utility/questions.dart';
 
@@ -9,13 +10,46 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  int curQuestion = 0;
+  int qIdx = 0;
+  QuizQuestion? curQuestion;
 
-  void qUpdate() {
-    if (curQuestion < questions.length - 1)
-      curQuestion++;
-    else
-      curQuestion = 0;
+  List<String> userAns = [];
+
+  @override
+  void initState() {
+    super.initState();
+    curQuestion = questions[qIdx];
+  }
+
+  void qUpdate(String buttonop) {
+    setState(() {
+      userAns.add(buttonop);
+      if (qIdx < questions.length - 1) {
+        qIdx++;
+      } else {
+        Navigator.push(
+            context,
+            MaterialPageRoute<ResultPage>(
+              builder: (context) => const ResultPage(),
+            ));
+        print(userAns);
+      }
+      curQuestion = questions[qIdx];
+    });
+  }
+
+  List<OptionButton> createOptionWid() {
+    List<OptionButton> buttons = [];
+    for (var i = 0; i < 4; i++) {
+      buttons.add(OptionButton(
+        op: curQuestion!.options[i],
+        qUpdate: () {
+          qUpdate(curQuestion!.options[i]);
+        },
+      ));
+    }
+    buttons.shuffle();
+    return buttons;
   }
 
   @override
@@ -40,11 +74,8 @@ class _QuizState extends State<Quiz> {
             const SizedBox(
               width: double.infinity,
             ),
-            questionBox(questions[curQuestion].question),
-            optionButton(questions[curQuestion].options[0]),
-            optionButton(questions[curQuestion].options[1]),
-            optionButton(questions[curQuestion].options[2]),
-            optionButton(questions[curQuestion].options[3]),
+            questionBox(curQuestion!.question),
+            ...createOptionWid(),
           ],
         ),
       ),
@@ -67,29 +98,36 @@ class _QuizState extends State<Quiz> {
             child: Text(
               ques,
               style: const TextStyle(color: Colors.white, fontSize: 20),
+              textAlign: TextAlign.center,
             ),
           ),
         ),
       ),
     );
   }
+}
 
-  Padding optionButton(String op) {
+class OptionButton extends StatelessWidget {
+  const OptionButton({super.key, required this.op, required this.qUpdate});
+  final String op;
+  final VoidCallback qUpdate;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: FilledButton(
-        onPressed: () {
-          setState(() {
-            qUpdate();
-          });
-        },
+        onPressed: qUpdate,
         style: FilledButton.styleFrom(
           backgroundColor: const Color.fromARGB(197, 135, 21, 91),
           minimumSize: const Size.fromHeight(50),
         ),
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Text(op)),
+            child: Text(
+              op,
+              textAlign: TextAlign.center,
+            )),
       ),
     );
   }
