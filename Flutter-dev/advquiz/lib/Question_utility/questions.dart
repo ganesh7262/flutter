@@ -59,3 +59,13 @@ const questions = [
     ],
   ),
 ];
+
+List<String> getCorrectAns() {
+  List<QuizQuestion> question = questions;
+  List<String> correctAns = [];
+  for (var que in question) {
+    correctAns.add(que.options[0]);
+  }
+  print(correctAns);
+  return correctAns;
+}

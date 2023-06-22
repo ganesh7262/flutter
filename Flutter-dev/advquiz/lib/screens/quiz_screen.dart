@@ -27,12 +27,15 @@ class _QuizState extends State<Quiz> {
       if (qIdx < questions.length - 1) {
         qIdx++;
       } else {
+        print(userAns);
+
         Navigator.push(
             context,
             MaterialPageRoute<ResultPage>(
-              builder: (context) => const ResultPage(),
+              builder: (context) => ResultPage(
+                userAns: userAns,
+              ),
             ));
-        print(userAns);
       }
       curQuestion = questions[qIdx];
     });
