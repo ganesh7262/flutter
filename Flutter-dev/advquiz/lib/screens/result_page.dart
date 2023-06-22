@@ -12,25 +12,32 @@ class ResultPage extends StatefulWidget {
 class _ResultPageState extends State<ResultPage> {
   List<String> uAns = [];
   List<String> correctAns = [];
+  int score = 0;
   @override
   void initState() {
     super.initState();
     correctAns = getCorrectAns();
     uAns = widget.userAns;
+    for (int i = 0; i < correctAns.length; i++) {
+      if (uAns[i] == correctAns[i]) score++;
+    }
+
     print(correctAns);
     print(uAns);
+    print(score);
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: ScreenRes(),
+    return Scaffold(
+      body: ScreenRes(userScore: score),
     );
   }
 }
 
 class ScreenRes extends StatelessWidget {
-  const ScreenRes({super.key});
+  ScreenRes({super.key, required this.userScore});
+  int userScore;
 
   @override
   Widget build(BuildContext context) {
@@ -46,19 +53,26 @@ class ScreenRes extends StatelessWidget {
           Color.fromARGB(255, 172, 22, 87),
         ],
       )),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             width: double.infinity,
           ),
           Text(
-            "You Answered 3 out of 6 questins correctly!",
+            "You Answered $userScore out of 6 questions correctly!",
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
           ),
+          Column(
+            children: [
+              ListTile(
+                title: Text("testing1"),
+              )
+            ],
+          )
         ],
       ),
     );

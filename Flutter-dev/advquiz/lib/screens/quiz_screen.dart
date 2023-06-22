@@ -24,6 +24,7 @@ class _QuizState extends State<Quiz> {
   void qUpdate(String buttonop) {
     setState(() {
       userAns.add(buttonop);
+      print(buttonop);
       if (qIdx < questions.length - 1) {
         qIdx++;
       } else {
