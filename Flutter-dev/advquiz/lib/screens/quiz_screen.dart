@@ -28,13 +28,17 @@ class _QuizState extends State<Quiz> {
       if (qIdx < questions.length - 1) {
         qIdx++;
       } else {
-        print(userAns);
-
+        int userScore = 0;
+        List<String> correctAns = getCorrectAns();
+        for (int i = 0; i < correctAns.length; i++) {
+          if (userAns[i] == correctAns[i]) userScore++;
+        }
         Navigator.push(
             context,
             MaterialPageRoute<ResultPage>(
               builder: (context) => ResultPage(
                 userAns: userAns,
+                score: userScore,
               ),
             ));
       }
