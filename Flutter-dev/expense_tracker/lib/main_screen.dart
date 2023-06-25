@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'utility/expenseclass.dart';
+import 'package:expense_tracker/utility/expenses_list.dart';
 
 class ExpScreen extends StatefulWidget {
   const ExpScreen({super.key});
@@ -8,6 +10,18 @@ class ExpScreen extends StatefulWidget {
 }
 
 class _ExpScreenState extends State<ExpScreen> {
+  final List<Expense> _registeredExpense = [
+    Expense(
+        title: "stationary",
+        amount: 200.32,
+        dateTime: DateTime.now(),
+        category: Category.work),
+    Expense(
+        title: "cinema",
+        amount: 200.32,
+        dateTime: DateTime.now(),
+        category: Category.leisure),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,14 +41,14 @@ class _ExpScreenState extends State<ExpScreen> {
           )
         ],
       ),
-      body: const Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             width: double.infinity,
           ),
-          Text("Chart"),
-          Text("expenses")
+          Text(_registeredExpense[0].title.toString()),
+          ExpensesListWid(expense: _registeredExpense)
         ],
       ),
     );
