@@ -22,23 +22,24 @@ class _ExpScreenState extends State<ExpScreen> {
         dateTime: DateTime.now(),
         category: Category.leisure),
   ];
+
+  void _displayModalOverlayExpense() {
+    showModalBottomSheet(
+        context: context, builder: (context) => Text("Welcome"));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Expense Tracker"),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: TextButton(
-                onPressed: () {
-                  print("object");
-                },
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                )),
-          )
+          IconButton(
+              onPressed: _displayModalOverlayExpense,
+              icon: const Icon(
+                Icons.add,
+                color: Colors.black,
+              ))
         ],
       ),
       body: Column(
