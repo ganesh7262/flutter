@@ -47,7 +47,7 @@ class _ExpScreenState extends State<ExpScreen> {
           const SizedBox(
             width: double.infinity,
           ),
-          Text(_registeredExpense[0].title.toString()),
+          Text("Chart"),
           ExpensesListWid(expense: _registeredExpense)
         ],
       ),
