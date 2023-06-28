@@ -1,3 +1,4 @@
+import 'package:expense_tracker/utility/new_exp_modal_sheet.dart';
 import 'package:flutter/material.dart';
 import 'utility/expenseclass.dart';
 import 'package:expense_tracker/utility/expenses_list.dart';
@@ -25,7 +26,7 @@ class _ExpScreenState extends State<ExpScreen> {
 
   void _displayModalOverlayExpense() {
     showModalBottomSheet(
-        context: context, builder: (context) => Text("Welcome"));
+        context: context, builder: (context) => const NewExp());
   }
 
   @override
