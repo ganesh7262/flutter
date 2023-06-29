@@ -66,80 +66,82 @@ class _NewExpState extends State<NewExp> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          TextField(
-            maxLength: 50,
-            decoration: const InputDecoration(label: Text("Title")),
-            controller: _titleController,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  decoration: const InputDecoration(
-                      label: Text("Amount"), prefixText: "\$ "),
-                  keyboardType: TextInputType.number,
-                  controller: _expenseController,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              autofocus: true,
+              maxLength: 50,
+              decoration: const InputDecoration(label: Text("Title")),
+              controller: _titleController,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        label: Text("Amount"), prefixText: "\$ "),
+                    keyboardType: TextInputType.number,
+                    controller: _expenseController,
+                  ),
                 ),
-              ),
-              Expanded(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(formatter.format(_pickedDate!).toString()),
-                  IconButton(
-                    onPressed: _presentDatePicker,
-                    icon: const Icon(Icons.calendar_month),
-                  )
-                ],
-              ))
-            ],
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Row(
-            children: [
-              DropdownButton(
-                value: _dropDownSelected,
-                items: Category.values
-                    .map(
-                      (category) => DropdownMenuItem(
-                        value: category,
-                        child: Text(
-                          category.name.toUpperCase(),
-                        ),
-                      ),
+                Expanded(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(formatter.format(_pickedDate!).toString()),
+                    IconButton(
+                      onPressed: _presentDatePicker,
+                      icon: const Icon(Icons.calendar_month),
                     )
-                    .toList(),
-                onChanged: (val) {
-                  setState(() {
-                    _dropDownSelected = val!;
-                  });
-                  print(val);
-                },
-              ),
-              const Spacer(),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
+                  ],
+                ))
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              children: [
+                DropdownButton(
+                  value: _dropDownSelected,
+                  items: Category.values
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(
+                            category.name.toUpperCase(),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (val) {
+                    setState(() {
+                      _dropDownSelected = val!;
+                    });
                   },
-                  child: const Text("Cancel")),
-              const SizedBox(
-                width: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    _submitExpenseData();
-                  },
-                  child: const Text("Save expense")),
-            ],
-          ),
-        ],
+                ),
+                const Spacer(),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, null);
+                    },
+                    child: const Text("Cancel")),
+                const SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      _submitExpenseData();
+                    },
+                    child: const Text("Save expense")),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

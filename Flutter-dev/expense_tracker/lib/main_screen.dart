@@ -26,9 +26,18 @@ class _ExpScreenState extends State<ExpScreen> {
 
   void _displayModalOverlayExpense() async {
     final newExp = await showModalBottomSheet(
-        context: context, builder: (context) => const NewExp());
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => const NewExp());
     setState(() {
+      if (newExp == null) return;
       _registeredExpense.add(newExp);
+    });
+  }
+
+  void helperRemoveExp(Expense exp) {
+    setState(() {
+      _registeredExpense.remove(exp);
     });
   }
 
@@ -53,7 +62,10 @@ class _ExpScreenState extends State<ExpScreen> {
             width: double.infinity,
           ),
           Text("Chart"),
-          ExpensesListWid(expense: _registeredExpense)
+          ExpensesListWid(
+            expense: _registeredExpense,
+            helperRemoveExp: helperRemoveExp,
+          )
         ],
       ),
     );
