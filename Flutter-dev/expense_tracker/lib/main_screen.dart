@@ -24,9 +24,12 @@ class _ExpScreenState extends State<ExpScreen> {
         category: Category.leisure),
   ];
 
-  void _displayModalOverlayExpense() {
-    showModalBottomSheet(
+  void _displayModalOverlayExpense() async {
+    final newExp = await showModalBottomSheet(
         context: context, builder: (context) => const NewExp());
+    setState(() {
+      _registeredExpense.add(newExp);
+    });
   }
 
   @override
