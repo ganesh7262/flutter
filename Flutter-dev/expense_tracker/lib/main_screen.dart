@@ -1,4 +1,5 @@
 import 'package:expense_tracker/utility/new_exp_modal_sheet.dart';
+import 'package:expense_tracker/utility/stat.dart';
 import 'package:flutter/material.dart';
 import 'utility/expenseclass.dart';
 import 'package:expense_tracker/utility/expenses_list.dart';
@@ -36,13 +37,35 @@ class _ExpScreenState extends State<ExpScreen> {
   }
 
   void helperRemoveExp(Expense exp) {
+    final expIdx = _registeredExpense.indexOf(exp);
     setState(() {
       _registeredExpense.remove(exp);
     });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: const Text("Expense Deleted"),
+      action: SnackBarAction(
+        label: "Undo",
+        onPressed: () {
+          setState(() {
+            _registeredExpense.insert(expIdx, exp);
+          });
+        },
+      ),
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text("No Expenses found, Start adding some!"),
+    );
+    if (_registeredExpense.isNotEmpty) {
+      mainContent = ExpensesListWid(
+        expense: _registeredExpense,
+        helperRemoveExp: helperRemoveExp,
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("Expense Tracker"),
@@ -51,7 +74,6 @@ class _ExpScreenState extends State<ExpScreen> {
               onPressed: _displayModalOverlayExpense,
               icon: const Icon(
                 Icons.add,
-                color: Colors.black,
               ))
         ],
       ),
@@ -61,11 +83,8 @@ class _ExpScreenState extends State<ExpScreen> {
           const SizedBox(
             width: double.infinity,
           ),
-          Text("Chart"),
-          ExpensesListWid(
-            expense: _registeredExpense,
-            helperRemoveExp: helperRemoveExp,
-          )
+          UserStats(userExpenses: _registeredExpense),
+          Expanded(child: mainContent),
         ],
       ),
     );
