@@ -1,16 +1,15 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flash_chat/components/message_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flash_chat/components/Stream_builder.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
+
+  const ChatScreen({super.key});
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {

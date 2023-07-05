@@ -7,8 +7,10 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
+
+  const LoginScreen({super.key});
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -33,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Flexible(
                 child: Hero(
                   tag: 'logo',
-                  child: Container(
+                  child: SizedBox(
                     height: 200.0,
                     child: Image.asset('images/logo.png'),
                   ),
@@ -78,14 +80,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     UserCredential user =
                         await _auth.signInWithEmailAndPassword(
                             email: email, password: password);
-                    if (user != null) {
-                      setState(() {
-                        showSpinner = false;
-                      });
-                      Navigator.pushNamed(context, ChatScreen.id);
-                    }
+                    setState(() {
+                      showSpinner = false;
+                    });
+                    if (!mounted) return;
+                    Navigator.pushNamed(context, ChatScreen.id);
                   } catch (e) {
-                    print(e);
+                    // print(e);
                   }
                 },
               ),

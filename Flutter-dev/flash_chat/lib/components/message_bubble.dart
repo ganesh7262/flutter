@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class MessageBubble extends StatelessWidget {
   String message;
   String sender;
@@ -22,10 +23,10 @@ class MessageBubble extends StatelessWidget {
           Material(
             elevation: 5.0,
             borderRadius: BorderRadius.only(
-              topLeft: isMe == true ? Radius.circular(30) : Radius.zero,
-              topRight: isMe == true ? Radius.zero : Radius.circular(30),
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30),
+              topLeft: isMe == true ? const Radius.circular(30) : Radius.zero,
+              topRight: isMe == true ? Radius.zero : const Radius.circular(30),
+              bottomLeft: const Radius.circular(30),
+              bottomRight: const Radius.circular(30),
             ),
             color: isMe == true ? Colors.lightBlueAccent : Colors.white,
             child: Padding(
