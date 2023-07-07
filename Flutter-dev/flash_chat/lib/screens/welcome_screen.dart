@@ -19,7 +19,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   Widget textAnimate() {
     return SizedBox(
       child: DefaultTextStyle(
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black,
           fontSize: 45.0,
           fontWeight: FontWeight.w900,
@@ -29,7 +29,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           animatedTexts: [
             TypewriterAnimatedText(
               'Flash Chat',
-              speed: Duration(milliseconds: 150),
+              speed: const Duration(milliseconds: 150),
             )
           ],
         ),
@@ -60,7 +60,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -69,9 +69,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               children: <Widget>[
                 Hero(
                   tag: 'logo',
-                  child: Container(
-                    child: Image.asset('images/logo.png'),
+                  child: SizedBox(
                     height: 60,
+                    child: Image.asset('images/logo.png'),
                   ),
                 ),
                 textAnimate(),

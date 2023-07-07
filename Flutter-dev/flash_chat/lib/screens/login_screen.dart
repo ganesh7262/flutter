@@ -86,7 +86,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (!mounted) return;
                     Navigator.pushNamed(context, ChatScreen.id);
                   } catch (e) {
-                    print(e);
+                    showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                              title: const Text("Wrong Credentials"),
+                              content: const Text(
+                                  "Invalid or wrong username or password"),
+                              actions: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      setState(() {
+                                        showSpinner = false;
+                                      });
+                                    },
+                                    child: const Text("Ok"))
+                              ],
+                            ));
                   }
                 },
               ),
