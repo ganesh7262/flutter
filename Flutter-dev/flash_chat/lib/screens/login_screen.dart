@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (!mounted) return;
                     Navigator.pushNamed(context, ChatScreen.id);
                   } catch (e) {
-                    // print(e);
+                    print(e);
                   }
                 },
               ),
