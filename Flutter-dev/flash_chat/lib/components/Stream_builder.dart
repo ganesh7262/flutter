@@ -5,7 +5,8 @@ import 'message_bubble.dart';
 class StreamMsgHandler extends StatelessWidget {
   final firestore;
   final user;
-  StreamMsgHandler({required this.firestore, required this.user});
+  const StreamMsgHandler(
+      {super.key, required this.firestore, required this.user});
 
   @override
   Widget build(BuildContext context) {
