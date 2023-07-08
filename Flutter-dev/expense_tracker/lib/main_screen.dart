@@ -1,5 +1,5 @@
 import 'package:expense_tracker/utility/new_exp_modal_sheet.dart';
-import 'package:expense_tracker/utility/stat.dart';
+// import 'package:expense_tracker/utility/stat.dart';
 import 'package:flutter/material.dart';
 import 'utility/expenseclass.dart';
 import 'package:expense_tracker/utility/expenses_list.dart';
@@ -83,7 +83,7 @@ class _ExpScreenState extends State<ExpScreen> {
           const SizedBox(
             width: double.infinity,
           ),
-          UserStats(userExpenses: _registeredExpense),
+          // UserStats(userExpenses: _registeredExpense),
           Expanded(child: mainContent),
         ],
       ),

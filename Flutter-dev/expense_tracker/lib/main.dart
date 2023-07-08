@@ -33,7 +33,7 @@ class Expensetracker extends StatelessWidget {
           backgroundColor: kColorScheme.onPrimaryContainer,
           foregroundColor: kColorScheme.primaryContainer,
         ),
-        cardTheme: CardTheme().copyWith(
+        cardTheme: const CardTheme().copyWith(
             color: kColorScheme.secondaryContainer,
             margin: const EdgeInsets.all(8)),
       ),
