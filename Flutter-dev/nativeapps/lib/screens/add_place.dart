@@ -8,7 +8,14 @@ class AddPlace extends StatefulWidget {
 }
 
 class _AddPlaceState extends State<AddPlace> {
-  String _title = "";
+  final _titleController = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,27 +28,30 @@ class _AddPlaceState extends State<AddPlace> {
           icon: const Icon(Icons.arrow_back),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              decoration: const InputDecoration(
-                label: Text("Title"),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: const InputDecoration(
+                  label: Text("Title"),
+                ),
+                controller: _titleController,
               ),
-              onChanged: (value) {
-                _title = value;
-              },
             ),
-          ),
-          ElevatedButton.icon(
-            onPressed: () {
-              Navigator.pop(context, _title);
-            },
-            icon: const Icon(Icons.add),
-            label: const Text("Add Place"),
-          )
-        ],
+            const SizedBox(
+              height: 16,
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pop(context, _titleController.text);
+              },
+              icon: const Icon(Icons.add),
+              label: const Text("Add Place"),
+            )
+          ],
+        ),
       ),
     );
   }

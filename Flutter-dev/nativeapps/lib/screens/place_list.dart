@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nativeapps/screens/place_detail.dart';
 import 'package:nativeapps/utility/place.dart';
 
 class PlaceList extends StatelessWidget {
@@ -9,12 +10,22 @@ class PlaceList extends StatelessWidget {
   Widget build(BuildContext context) {
     if (places.isEmpty) {
       return const Center(
-        child: Text("No places Added"),
+        child: Text("No places Added yet"),
       );
     }
     return ListView.builder(
-        itemCount: places.length,
-        itemBuilder: (context, idx) =>
-            ListTile(title: Text(places[idx].title)));
+      itemCount: places.length,
+      itemBuilder: (context, idx) => ListTile(
+        title: Text(places[idx].title),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PlaceDetail(place: places[idx]),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

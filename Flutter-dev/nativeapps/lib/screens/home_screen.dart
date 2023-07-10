@@ -20,12 +20,13 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () async {
-                String newPlace = await Navigator.push(
+                final newPlace;
+                newPlace = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const AddPlace(),
                     ));
-                if (newPlace.isNotEmpty) places.add(Place(title: newPlace));
+                if (newPlace != null) places.add(Place(title: newPlace));
                 setState(() {});
               },
               icon: const Icon(Icons.add))
