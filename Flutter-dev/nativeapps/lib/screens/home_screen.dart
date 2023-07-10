@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nativeapps/screens/add_palce.dart';
+import 'package:nativeapps/utility/place.dart';
+import 'package:nativeapps/screens/add_place.dart';
+import 'package:nativeapps/screens/place_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,37 +11,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> places = [];
+  List<Place> places = [];
   @override
   Widget build(BuildContext context) {
-    Widget mainContent = const Center(child: Text("Please add your places"));
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your Place"),
         actions: [
           IconButton(
-              onPressed: () {
-                /* New screen to add places */
-                Navigator.push(
+              onPressed: () async {
+                String newPlace = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AddPlace(),
+                      builder: (context) => const AddPlace(),
                     ));
+                if (newPlace.isNotEmpty) places.add(Place(title: newPlace));
+                setState(() {});
               },
               icon: const Icon(Icons.add))
         ],
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(
-            width: double.infinity,
-          ),
-          Expanded(child: mainContent)
-        ],
-      ),
+      body: PlaceList(places: places),
     );
   }
 }
