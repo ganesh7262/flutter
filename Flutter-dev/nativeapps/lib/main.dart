@@ -19,12 +19,15 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
+        colorScheme: kColorScheme,
         useMaterial3: true,
-        appBarTheme: const AppBarTheme().copyWith(color: Colors.black),
+        appBarTheme: const AppBarTheme().copyWith(
+            color: kColorScheme.primary,
+            foregroundColor: kColorScheme.inversePrimary),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-              backgroundColor: kColorScheme.onSecondary,
-              foregroundColor: kColorScheme.onBackground),
+              backgroundColor: kColorScheme.primary,
+              foregroundColor: kColorScheme.inversePrimary),
         ),
       ),
       home: const HomeScreen(),
