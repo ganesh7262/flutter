@@ -17,8 +17,15 @@ class PlaceDetail extends StatelessWidget {
           },
         ),
       ),
-      body: Center(
-        child: Text(place.title),
+      body: Column(
+        children: [
+          Text(place.title),
+          Expanded(
+              child: Image.file(
+            place.image,
+            fit: BoxFit.cover,
+          )),
+        ],
       ),
     );
   }

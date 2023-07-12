@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nativeapps/utility/place.dart';
 import 'package:nativeapps/screens/add_place.dart';
-import 'package:nativeapps/screens/place_list.dart';
+import 'package:nativeapps/utility/place_list.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
