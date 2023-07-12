@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nativeapps/utility/place.dart';
+import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 
 final kColorScheme = ColorScheme.fromSeed(seedColor: Colors.black);
 
 void main() {
-  runApp(const MainApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => PlaceModel(), child: const MainApp()));
 }
 
 class MainApp extends StatefulWidget {

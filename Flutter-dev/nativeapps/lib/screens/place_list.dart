@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:nativeapps/screens/place_detail.dart';
 import 'package:nativeapps/utility/place.dart';
+import 'package:provider/provider.dart';
 
 class PlaceList extends StatelessWidget {
-  const PlaceList({super.key, required this.places});
-  final List<Place> places;
+  const PlaceList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    if (places.isEmpty) {
-      return const Center(
-        child: Text("No places Added yet"),
-      );
-    }
-    return ListView.builder(
-      itemCount: places.length,
-      itemBuilder: (context, idx) => ListTile(
-        title: Text(places[idx].title),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PlaceDetail(place: places[idx]),
+    return Consumer<PlaceModel>(
+      builder: (context, value, child) {
+        if (value.places.isEmpty) {
+          return const Center(
+            child: Text("No places Added yet"),
+          );
+        } else {
+          return ListView.builder(
+            itemCount: value.places.length,
+            itemBuilder: (context, idx) => ListTile(
+              title: Text(value.places[idx].title),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PlaceDetail(place: value.places[idx]),
+                  ),
+                );
+              },
             ),
           );
-        },
-      ),
+        }
+      },
     );
   }
 }

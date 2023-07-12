@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nativeapps/utility/place.dart';
 import 'package:nativeapps/screens/add_place.dart';
 import 'package:nativeapps/screens/place_list.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,20 +20,18 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Your Place"),
         actions: [
           IconButton(
-              onPressed: () async {
-                final newPlace;
-                newPlace = await Navigator.push(
+              onPressed: () {
+                Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const AddPlace(),
                     ));
-                if (newPlace != null) places.add(Place(title: newPlace));
-                setState(() {});
               },
               icon: const Icon(Icons.add))
         ],
       ),
-      body: PlaceList(places: places),
+      body: Consumer<PlaceModel>(
+          builder: (context, value, child) => const PlaceList()),
     );
   }
 }
