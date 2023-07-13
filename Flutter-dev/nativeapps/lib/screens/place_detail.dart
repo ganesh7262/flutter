@@ -17,14 +17,14 @@ class PlaceDetail extends StatelessWidget {
           },
         ),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Text(place.title),
-          Expanded(
-              child: Image.file(
+          Image.file(
             place.image,
+            height: double.infinity,
+            width: double.infinity,
             fit: BoxFit.cover,
-          )),
+          )
         ],
       ),
     );

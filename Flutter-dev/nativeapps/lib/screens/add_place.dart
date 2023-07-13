@@ -14,7 +14,7 @@ class AddPlace extends StatefulWidget {
 
 class _AddPlaceState extends State<AddPlace> {
   final _titleController = TextEditingController();
-  late File _image;
+  File? _image;
 
   @override
   void dispose() {
@@ -59,10 +59,13 @@ class _AddPlaceState extends State<AddPlace> {
             Consumer<PlaceModel>(
               builder: (context, value, child) => ElevatedButton.icon(
                 onPressed: () {
-                  if (_titleController.text.isEmpty) Navigator.pop(context);
-                  value.add(Place(title: _titleController.text, image: _image));
-
-                  Navigator.pop(context);
+                  if (_titleController.text.isEmpty || _image == null) {
+                    Navigator.pop(context);
+                  } else {
+                    value.add(
+                        Place(title: _titleController.text, image: _image!));
+                    Navigator.pop(context);
+                  }
                 },
                 icon: const Icon(Icons.add),
                 label: const Text("Add Place"),

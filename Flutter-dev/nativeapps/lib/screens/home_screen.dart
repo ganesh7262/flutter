@@ -31,7 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Consumer<PlaceModel>(
-          builder: (context, value, child) => const PlaceList()),
+          builder: (context, value, child) => const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: PlaceList(),
+              )),
     );
   }
 }
