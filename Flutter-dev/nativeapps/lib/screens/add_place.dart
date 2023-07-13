@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:nativeapps/utility/image_input.dart';
+import 'package:nativeapps/utility/loaction_input.dart';
 import 'package:nativeapps/utility/place.dart';
 import 'package:provider/provider.dart';
 
@@ -53,6 +54,7 @@ class _AddPlaceState extends State<AddPlace> {
                 _image = image;
               },
             ),
+            const LocationInput(),
             const SizedBox(
               height: 20,
             ),
