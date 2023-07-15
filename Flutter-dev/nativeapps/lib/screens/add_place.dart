@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:nativeapps/utility/image_input.dart';
 import 'package:nativeapps/utility/loaction_input.dart';
 import 'package:nativeapps/utility/place.dart';
@@ -16,6 +17,7 @@ class AddPlace extends StatefulWidget {
 class _AddPlaceState extends State<AddPlace> {
   final _titleController = TextEditingController();
   File? _image;
+  LocationData? _location;
 
   @override
   void dispose() {
@@ -54,18 +56,29 @@ class _AddPlaceState extends State<AddPlace> {
                 _image = image;
               },
             ),
-            const LocationInput(),
+            LocationInput(
+              sendLocation: (location) {
+                _location = location;
+                print("testing locaitonINput fn");
+                print(_location!.latitude);
+                print(_location!.longitude);
+              },
+            ),
             const SizedBox(
               height: 20,
             ),
             Consumer<PlaceModel>(
               builder: (context, value, child) => ElevatedButton.icon(
                 onPressed: () {
-                  if (_titleController.text.isEmpty || _image == null) {
+                  if (_titleController.text.isEmpty ||
+                      _image == null ||
+                      _location == null) {
                     Navigator.pop(context);
                   } else {
-                    value.add(
-                        Place(title: _titleController.text, image: _image!));
+                    value.add(Place(
+                        title: _titleController.text,
+                        image: _image!,
+                        location: _location!));
                     Navigator.pop(context);
                   }
                 },

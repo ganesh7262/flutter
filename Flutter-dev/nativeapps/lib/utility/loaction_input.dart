@@ -4,15 +4,17 @@ import 'package:location/location.dart';
 import '../main.dart';
 
 class LocationInput extends StatefulWidget {
-  const LocationInput({super.key});
+  const LocationInput({super.key, required this.sendLocation});
+  final Function(LocationData location) sendLocation;
 
   @override
   State<LocationInput> createState() => _LocationInputState();
 }
 
 class _LocationInputState extends State<LocationInput> {
-  Location? _pickedLocation;
   bool _fetchingLocation = false;
+  bool _fetchingLocationSuccess = false;
+  late LocationData _locationData;
 
   void _getCurrentLocation() async {
     Location location = Location();
@@ -41,22 +43,33 @@ class _LocationInputState extends State<LocationInput> {
     });
 
     locationData = await location.getLocation();
+    _locationData = locationData;
+    widget.sendLocation(locationData);
+
     setState(() {
       _fetchingLocation = false;
+      _fetchingLocationSuccess = true;
     });
-    print(locationData.latitude);
-    print(locationData.longitude);
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget previewContent = Text(
-      "No location chosen",
-      textAlign: TextAlign.center,
-      style: TextStyle(color: kColorScheme.primaryContainer),
+    Widget previewContent = TextButton.icon(
+      onPressed: () {
+        _getCurrentLocation();
+      },
+      icon: const Icon(Icons.location_on),
+      label: const Text("Get Current Location"),
     );
 
     if (_fetchingLocation) previewContent = const CircularProgressIndicator();
+    if (!_fetchingLocation && _fetchingLocationSuccess) {
+      previewContent = Text(
+        "Location Successfully Aquired!\n (${_locationData.latitude} , ${_locationData.longitude})",
+        textAlign: TextAlign.center,
+        style: TextStyle(color: kColorScheme.inversePrimary),
+      );
+    }
 
     return Column(
       children: [
@@ -68,26 +81,6 @@ class _LocationInputState extends State<LocationInput> {
           width: double.infinity,
           child: previewContent,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextButton.icon(
-              onPressed: () {
-                _getCurrentLocation();
-              },
-              icon: const Icon(Icons.location_on),
-              label: const Text("Get Current Location"),
-            ),
-            TextButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.map),
-              label: const Text(
-                "Select on Map",
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        )
       ],
     );
   }
