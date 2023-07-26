@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nativeapps/screens/place_detail.dart';
-import 'package:nativeapps/utility/place.dart';
+import 'package:nativeapps/utility/place_provider.dart';
 import 'package:provider/provider.dart';
 
 class PlaceList extends StatelessWidget {
@@ -10,6 +10,7 @@ class PlaceList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<PlaceModel>(
       builder: (context, value, child) {
+        value.loadDatabase();
         if (value.places.isEmpty) {
           return const Center(
             child: Text("No places Added yet"),

@@ -3,9 +3,15 @@ import 'package:location/location.dart';
 
 import '../main.dart';
 
+class userLocationHelper {
+  userLocationHelper({required this.lat, required this.lon});
+  double lat;
+  double lon;
+}
+
 class LocationInput extends StatefulWidget {
   const LocationInput({super.key, required this.sendLocation});
-  final Function(LocationData location) sendLocation;
+  final Function(userLocationHelper location) sendLocation;
 
   @override
   State<LocationInput> createState() => _LocationInputState();
@@ -14,7 +20,7 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   bool _fetchingLocation = false;
   bool _fetchingLocationSuccess = false;
-  late LocationData _locationData;
+  late userLocationHelper _locationData;
 
   void _getCurrentLocation() async {
     Location location = Location();
@@ -43,8 +49,9 @@ class _LocationInputState extends State<LocationInput> {
     });
 
     locationData = await location.getLocation();
-    _locationData = locationData;
-    widget.sendLocation(locationData);
+    _locationData = userLocationHelper(
+        lat: locationData.latitude!, lon: locationData.longitude!);
+    widget.sendLocation(_locationData);
 
     setState(() {
       _fetchingLocation = false;
@@ -65,7 +72,7 @@ class _LocationInputState extends State<LocationInput> {
     if (_fetchingLocation) previewContent = const CircularProgressIndicator();
     if (!_fetchingLocation && _fetchingLocationSuccess) {
       previewContent = Text(
-        "Location Successfully Aquired!\n (${_locationData.latitude} , ${_locationData.longitude})",
+        "Location Successfully Aquired!\n (${_locationData.lat} , ${_locationData.lon})",
         textAlign: TextAlign.center,
         style: TextStyle(color: kColorScheme.inversePrimary),
       );

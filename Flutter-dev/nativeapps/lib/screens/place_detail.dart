@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nativeapps/utility/place.dart';
+import 'package:nativeapps/utility/place_provider.dart';
 
 class PlaceDetail extends StatelessWidget {
   const PlaceDetail({super.key, required this.place});

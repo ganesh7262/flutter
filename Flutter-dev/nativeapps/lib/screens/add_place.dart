@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:nativeapps/utility/image_input.dart';
-import 'package:nativeapps/utility/loaction_input.dart';
-import 'package:nativeapps/utility/place.dart';
+import 'package:nativeapps/utility/location_input.dart';
+import 'package:nativeapps/utility/place_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddPlace extends StatefulWidget {
@@ -17,7 +17,7 @@ class AddPlace extends StatefulWidget {
 class _AddPlaceState extends State<AddPlace> {
   final _titleController = TextEditingController();
   File? _image;
-  LocationData? _location;
+  userLocationHelper? _location;
 
   @override
   void dispose() {
@@ -28,6 +28,7 @@ class _AddPlaceState extends State<AddPlace> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text("Add New Place"),
           leading: IconButton(
@@ -60,8 +61,8 @@ class _AddPlaceState extends State<AddPlace> {
               sendLocation: (location) {
                 _location = location;
                 print("testing locaitonINput fn");
-                print(_location!.latitude);
-                print(_location!.longitude);
+                print(_location!.lat);
+                print(_location!.lon);
               },
             ),
             const SizedBox(
@@ -75,10 +76,7 @@ class _AddPlaceState extends State<AddPlace> {
                       _location == null) {
                     Navigator.pop(context);
                   } else {
-                    value.add(Place(
-                        title: _titleController.text,
-                        image: _image!,
-                        location: _location!));
+                    value.add(_titleController.text, _image!, _location!);
                     Navigator.pop(context);
                   }
                 },

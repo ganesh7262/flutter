@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nativeapps/utility/place.dart';
+import 'package:nativeapps/utility/place_provider.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 
