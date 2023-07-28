@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flash_chat_v2/screens/registeration_page.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -52,7 +53,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 100, child: Image.asset("images/logo.png")),
+                Hero(
+                    tag: 1,
+                    child: SizedBox(
+                        height: 100, child: Image.asset("images/logo.png"))),
                 textAnimate(),
               ],
             ),
@@ -72,7 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(minimumSize: const Size(200, 45)),
               onPressed: () {
-                /* go to register page */
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RegisterationPage(),
+                    ));
               },
               icon: const Icon(Icons.how_to_reg),
               label: const Text("Register"),
