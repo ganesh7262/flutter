@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flash_chat_v2/screens/login_screen.dart';
 import 'package:flash_chat_v2/screens/registeration_page.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(minimumSize: const Size(200, 45)),
               onPressed: () {
-                /* go to login page */
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ));
               },
               icon: const Icon(Icons.login),
               label: const Text(

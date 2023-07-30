@@ -1,28 +1,26 @@
-import 'package:flash_chat_v2/screens/login_screen.dart';
+import 'package:flash_chat_v2/screens/registeration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-final fireBaseAuth = FirebaseAuth.instance;
-
-class RegisterationPage extends StatefulWidget {
-  const RegisterationPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<RegisterationPage> createState() => _RegisterationPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterationPageState extends State<RegisterationPage> {
+class _LoginPageState extends State<LoginPage> {
   var _userEmail = "";
   var _userPassword = "";
   final _form = GlobalKey<FormState>();
 
-  void _registerUser() async {
+  void _loginUser() async {
     final isValid = _form.currentState!.validate();
     if (!isValid) return;
 
     _form.currentState!.save();
     try {
-      final userCred = await fireBaseAuth.createUserWithEmailAndPassword(
+      final userCred = await fireBaseAuth.signInWithEmailAndPassword(
           email: _userEmail, password: _userPassword);
       Navigator.pushNamed(context, 'chat');
     } on FirebaseAuthException catch (error) {
@@ -102,18 +100,18 @@ class _RegisterationPageState extends State<RegisterationPage> {
                                 height: 20,
                               ),
                               ElevatedButton(
-                                  onPressed: _registerUser,
-                                  child: const Text("Create new account")),
+                                  onPressed: _loginUser,
+                                  child: const Text("Login")),
                               TextButton(
                                   onPressed: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const LoginPage(),
+                                              const RegisterationPage(),
                                         ));
                                   },
-                                  child: const Text("Already have an account?"))
+                                  child: const Text("Don't have an account?"))
                             ],
                           )),
                     ),
