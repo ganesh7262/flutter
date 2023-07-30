@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+final fireBaseAuth = FirebaseAuth.instance;
 
 class RegisterationPage extends StatefulWidget {
   const RegisterationPage({super.key});
@@ -11,12 +14,23 @@ class _RegisterationPageState extends State<RegisterationPage> {
   var _userEmail = "";
   var _userPassword = "";
   final _form = GlobalKey<FormState>();
-  void _submit() {
+
+  void _registerUser() async {
     final isValid = _form.currentState!.validate();
-    if (isValid) {
-      _form.currentState!.save();
-      print(_userEmail);
-      print(_userPassword);
+    if (!isValid) return;
+
+    _form.currentState!.save();
+    try {
+      final userCred = await fireBaseAuth.createUserWithEmailAndPassword(
+          email: _userEmail, password: _userPassword);
+      print(userCred);
+    } on FirebaseAuthException catch (error) {
+      if (error.code == "email-already-in-use") {
+        // ....
+      }
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error.message ?? 'Authentication Failed')));
     }
   }
 
@@ -87,7 +101,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                                 height: 20,
                               ),
                               ElevatedButton(
-                                  onPressed: _submit,
+                                  onPressed: _registerUser,
                                   child: const Text("Create new account")),
                               TextButton(
                                   onPressed: () {
