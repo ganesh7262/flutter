@@ -1,4 +1,5 @@
 import 'package:flash_chat_v2/screens/login_screen.dart';
+import 'package:flash_chat_v2/widget/user_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -24,7 +25,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
     try {
       final userCred = await fireBaseAuth.createUserWithEmailAndPassword(
           email: _userEmail, password: _userPassword);
-      Navigator.pushNamed(context, 'chat');
+      if (context.mounted) Navigator.of(context).pop();
     } on FirebaseAuthException catch (error) {
       if (error.code == "email-already-in-use") {
         // ....
@@ -67,6 +68,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              UserImagePicker(),
                               TextFormField(
                                 decoration: const InputDecoration(
                                     labelText: "Email Address"),

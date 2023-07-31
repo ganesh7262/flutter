@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final userCred = await fireBaseAuth.signInWithEmailAndPassword(
           email: _userEmail, password: _userPassword);
-      Navigator.pushNamed(context, 'chat');
+      if (context.mounted) Navigator.of(context).pop();
     } on FirebaseAuthException catch (error) {
       if (error.code == "email-already-in-use") {
         // ....

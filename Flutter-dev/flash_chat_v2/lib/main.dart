@@ -1,7 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat_v2/screens/chat_screen.dart';
-import 'package:flash_chat_v2/screens/login_screen.dart';
 import 'package:flash_chat_v2/screens/my_home_screen.dart';
-import 'package:flash_chat_v2/screens/registeration_page.dart';
+import 'package:flash_chat_v2/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -20,16 +20,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        '/': (context) => const MyHomePage(),
-        'loginpage': (context) => const LoginPage(),
-        'RegPage': (context) => const RegisterationPage(),
-        'chat': (context) => const ChatScreen()
-      },
       title: 'Flash_chat_v2',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+      ),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const SplashScreen();
+          }
+          if (snapshot.hasData) return const ChatScreen();
+
+          return const MyHomePage();
+        },
       ),
     );
   }
