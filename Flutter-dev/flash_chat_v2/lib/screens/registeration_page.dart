@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flash_chat_v2/screens/login_screen.dart';
 import 'package:flash_chat_v2/widget/user_image_picker.dart';
 import 'package:flutter/material.dart';
@@ -15,16 +18,30 @@ class RegisterationPage extends StatefulWidget {
 class _RegisterationPageState extends State<RegisterationPage> {
   var _userEmail = "";
   var _userPassword = "";
+  File? _selectedImage;
+  bool _isAuthenticating = false;
+
   final _form = GlobalKey<FormState>();
 
   void _registerUser() async {
     final isValid = _form.currentState!.validate();
-    if (!isValid) return;
+    if (!isValid || _selectedImage == null) return;
 
     _form.currentState!.save();
     try {
+      setState(() {
+        _isAuthenticating = true;
+      });
       final userCred = await fireBaseAuth.createUserWithEmailAndPassword(
           email: _userEmail, password: _userPassword);
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child("user_image")
+          .child("${userCred.user!.uid}.jpg");
+      await storageRef.putFile(_selectedImage!);
+      final imageUrl = await storageRef.getDownloadURL();
+      print(imageUrl);
+
       if (context.mounted) Navigator.of(context).pop();
     } on FirebaseAuthException catch (error) {
       if (error.code == "email-already-in-use") {
@@ -34,6 +51,9 @@ class _RegisterationPageState extends State<RegisterationPage> {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(error.message ?? 'Authentication Failed')));
     }
+    setState(() {
+      _isAuthenticating = false;
+    });
   }
 
   @override
@@ -68,7 +88,11 @@ class _RegisterationPageState extends State<RegisterationPage> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              UserImagePicker(),
+                              UserImagePicker(
+                                onPickImage: (pickedImage) {
+                                  _selectedImage = pickedImage;
+                                },
+                              ),
                               TextFormField(
                                 decoration: const InputDecoration(
                                     labelText: "Email Address"),
@@ -103,19 +127,24 @@ class _RegisterationPageState extends State<RegisterationPage> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              ElevatedButton(
-                                  onPressed: _registerUser,
-                                  child: const Text("Create new account")),
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const LoginPage(),
-                                        ));
-                                  },
-                                  child: const Text("Already have an account?"))
+                              if (_isAuthenticating)
+                                CircularProgressIndicator(),
+                              if (!_isAuthenticating)
+                                ElevatedButton(
+                                    onPressed: _registerUser,
+                                    child: const Text("Create new account")),
+                              if (!_isAuthenticating)
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoginPage(),
+                                          ));
+                                    },
+                                    child:
+                                        const Text("Already have an account?"))
                             ],
                           )),
                     ),
