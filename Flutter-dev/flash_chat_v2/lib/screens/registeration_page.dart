@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flash_chat_v2/screens/login_screen.dart';
 import 'package:flash_chat_v2/widget/user_image_picker.dart';
@@ -18,6 +19,7 @@ class RegisterationPage extends StatefulWidget {
 class _RegisterationPageState extends State<RegisterationPage> {
   var _userEmail = "";
   var _userPassword = "";
+  var _username = "";
   File? _selectedImage;
   bool _isAuthenticating = false;
 
@@ -41,6 +43,15 @@ class _RegisterationPageState extends State<RegisterationPage> {
       await storageRef.putFile(_selectedImage!);
       final imageUrl = await storageRef.getDownloadURL();
       print(imageUrl);
+
+      FirebaseFirestore.instance
+          .collection("user")
+          .doc(userCred.user!.uid)
+          .set({
+        'username': _username,
+        'email': _userEmail,
+        'image_url': imageUrl,
+      });
 
       if (context.mounted) Navigator.of(context).pop();
     } on FirebaseAuthException catch (error) {
@@ -109,6 +120,22 @@ class _RegisterationPageState extends State<RegisterationPage> {
                                   return null;
                                 },
                                 onSaved: (newValue) => _userEmail = newValue!,
+                              ),
+                              TextFormField(
+                                decoration: const InputDecoration(
+                                    labelText: "Username"),
+                                enableSuggestions: false,
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.isEmpty ||
+                                      value.length < 4) {
+                                    return "Username should be atleast 4 character!";
+                                  }
+                                  return null;
+                                },
+                                onSaved: (newValue) {
+                                  _username = newValue!;
+                                },
                               ),
                               TextFormField(
                                 decoration: const InputDecoration(
