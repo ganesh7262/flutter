@@ -42,7 +42,6 @@ class _RegisterationPageState extends State<RegisterationPage> {
           .child("${userCred.user!.uid}.jpg");
       await storageRef.putFile(_selectedImage!);
       final imageUrl = await storageRef.getDownloadURL();
-      print(imageUrl);
 
       FirebaseFirestore.instance
           .collection("user")
