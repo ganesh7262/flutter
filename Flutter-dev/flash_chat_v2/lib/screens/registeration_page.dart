@@ -55,7 +55,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
       if (context.mounted) Navigator.of(context).pop();
     } on FirebaseAuthException catch (error) {
       if (error.code == "email-already-in-use") {
-        // ....
+        debugPrint(error.code);
       }
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -154,7 +154,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                                 height: 20,
                               ),
                               if (_isAuthenticating)
-                                CircularProgressIndicator(),
+                                const CircularProgressIndicator(),
                               if (!_isAuthenticating)
                                 ElevatedButton(
                                     onPressed: _registerUser,
