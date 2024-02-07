@@ -27,9 +27,11 @@ class _LoginPageState extends State<LoginPage> {
       if (error.code == "email-already-in-use") {
         // ....
       }
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.message ?? 'Authentication Failed')));
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error.message ?? 'Authentication Failed')));
+      }
     }
   }
 
