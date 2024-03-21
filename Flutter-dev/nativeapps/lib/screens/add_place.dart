@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:nativeapps/utility/image_input.dart';
 import 'package:nativeapps/utility/location_input.dart';
 import 'package:nativeapps/utility/place_provider.dart';
